@@ -1,10 +1,6 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles';
 
-import { useTranslate } from 'src/locales';
-
-import { useSettingsContext } from 'src/components/settings';
-
 import { createTheme } from './create-theme';
 import { schemeConfig } from './scheme-config';
 import { RTL } from './with-settings/right-to-left';
@@ -12,11 +8,7 @@ import { RTL } from './with-settings/right-to-left';
 // ----------------------------------------------------------------------
 
 export function ThemeProvider({ children }) {
-  const { currentLang } = useTranslate();
-
-  const settings = useSettingsContext();
-
-  const theme = createTheme(currentLang?.systemValue, settings);
+  const theme = createTheme();
 
   return (
     <CssVarsProvider
@@ -25,7 +17,7 @@ export function ThemeProvider({ children }) {
       modeStorageKey={schemeConfig.modeStorageKey}
     >
       <CssBaseline />
-      <RTL direction={settings.direction}>{children}</RTL>
+      <RTL>{children}</RTL>
     </CssVarsProvider>
   );
 }

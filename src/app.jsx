@@ -1,43 +1,59 @@
-import 'src/global.css';
+import React, { useState } from 'react';
 
-// ----------------------------------------------------------------------
+import { Box, Toolbar, CssBaseline } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { Router } from 'src/routes/sections';
+import Navbar from './components/nav-bar';
+import Sidebar from './components/side-bar';
 
-import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
+const theme = createTheme();
 
-import { LocalizationProvider } from 'src/locales';
-import { I18nProvider } from 'src/locales/i18n-provider';
-import { ThemeProvider } from 'src/theme/theme-provider';
+function App() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeDoc, setActiveDoc] = useState('Array');
 
-import { Snackbar } from 'src/components/snackbar';
-import { ProgressBar } from 'src/components/progress-bar';
-import { MotionLazy } from 'src/components/animate/motion-lazy';
-import { SettingsDrawer, defaultSettings, SettingsProvider } from 'src/components/settings';
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
-import { CheckoutProvider } from 'src/sections/checkout/context';
-
-// ----------------------------------------------------------------------
-
-export default function App() {
-  useScrollToTop();
+  // This would be replaced with your actual documentation components
+  const renderDocumentation = () => {
+    switch (activeDoc) {
+      case 'Array':
+        return <div>Array Documentation Content</div>;
+      case 'Stack':
+        return <div>Stack Documentation Content</div>;
+      case 'Queue':
+        return <div>Queue Documentation Content</div>;
+      default:
+        return <div>Select a topic from the sidebar</div>;
+    }
+  };
 
   return (
-    <I18nProvider>
-      <LocalizationProvider>
-        <SettingsProvider settings={defaultSettings}>
-          <ThemeProvider>
-            <MotionLazy>
-              <CheckoutProvider>
-                <Snackbar />
-                <ProgressBar />
-                <SettingsDrawer />
-                <Router />
-              </CheckoutProvider>
-            </MotionLazy>
-          </ThemeProvider>
-        </SettingsProvider>
-      </LocalizationProvider>
-    </I18nProvider>
+    <ThemeProvider theme={theme}>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <Navbar handleDrawerToggle={handleDrawerToggle} />
+        <Sidebar
+          mobileOpen={mobileOpen}
+          handleDrawerToggle={handleDrawerToggle}
+          setActiveDoc={setActiveDoc}
+        />
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            width: { sm: `calc(100% - 240px)` },
+          }}
+        >
+          <Toolbar /> {/* This pushes content below the app bar */}
+          {renderDocumentation()}
+        </Box>
+      </Box>
+    </ThemeProvider>
   );
 }
+
+export default App;
