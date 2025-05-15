@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import Navbar from './components/nav-bar';
 import Sidebar from './components/side-bar';
+import ArrayDoc from './pages/documentations/array-doc';
 
 const theme = createTheme();
 
@@ -20,7 +21,7 @@ function App() {
   const renderDocumentation = () => {
     switch (activeDoc) {
       case 'Array':
-        return <div>Array Documentation Content</div>;
+        return <ArrayDoc />;
       case 'Stack':
         return <div>Stack Documentation Content</div>;
       case 'Queue':
