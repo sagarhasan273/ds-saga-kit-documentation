@@ -11,7 +11,7 @@ const theme = createTheme();
 
 function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeDoc, setActiveDoc] = useState('Array');
+  const [activeDoc, setActiveDoc] = useState('array');
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -20,12 +20,32 @@ function App() {
   // This would be replaced with your actual documentation components
   const renderDocumentation = () => {
     switch (activeDoc) {
-      case 'Array':
+      case 'array':
         return <ArrayDoc />;
-      case 'Stack':
+      case 'stack':
         return <div>Stack Documentation Content</div>;
-      case 'Queue':
+      case 'queue':
         return <div>Queue Documentation Content</div>;
+      case 'deque':
+        return <div>Deque Doccumentation Content</div>;
+      case 'singly-linked-list':
+        return <div>Single Doccumentation Content</div>;
+      case 'doubly-linked-list':
+        return <div>Doubly Doccumentation Content</div>;
+      case 'hash-table':
+        return <div>hash Table Doccumentation Content</div>;
+      case 'binary-search-tree':
+        return <div>Binary search Tree</div>;
+      case 'heap':
+        return <div>Heap Doccumentation Content</div>;
+      case 'binary-search':
+        return <div>Binary Search Doccumentation Content</div>;
+      case 'linear-search':
+        return <div>Linear search</div>;
+      case 'lower-bound':
+        return <div>Lower Bound Doccumentation Content</div>;
+      case 'upper-bound':
+        return <div>Upper Bound Doccumentation Content</div>;
       default:
         return <div>Select a topic from the sidebar</div>;
     }
@@ -39,6 +59,7 @@ function App() {
         <Sidebar
           mobileOpen={mobileOpen}
           handleDrawerToggle={handleDrawerToggle}
+          activeDoc={activeDoc}
           setActiveDoc={setActiveDoc}
         />
         <Box
